@@ -29,15 +29,9 @@ impl Board {
         if self.state[vslot] != 0 {
             return None;
         }
-        let mut mvec: Vec<u8> = vec::Vec::with_capacity(curstate.len());
-        mvec.resize(curstate.len(), 0);
+        let mut mvec: Vec<u8> = curstate.clone();
         let player = self.current;
-        println!("p {} d {}", &player, &vslot);
         mvec[vslot] = player;
-        if vslot != 0 {
-            mvec[0..vslot - 1].clone_from_slice(&self.state[0..vslot - 1]);
-        }
-        mvec[vmove..].clone_from_slice(&self.state[vmove..]);
 
         Some(Board{players: self.players, length: self.length, dimension: self.dimension, current: (player %  self.players) + 1 , state: mvec })
     }
